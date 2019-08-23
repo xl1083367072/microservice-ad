@@ -1,15 +1,13 @@
 package com.xl.ad.service.impl;
 
 import com.xl.ad.constant.Constants;
-import com.xl.ad.dao.AdUnitDistrictRepository;
-import com.xl.ad.dao.AdUnitItRepository;
-import com.xl.ad.dao.AdUnitKeywordRepository;
-import com.xl.ad.dao.AdUnitRepository;
+import com.xl.ad.dao.*;
 import com.xl.ad.entity.AdPlan;
 import com.xl.ad.entity.AdUnit;
 import com.xl.ad.entity.unit_condition.AdUnitDistrict;
 import com.xl.ad.entity.unit_condition.AdUnitIt;
 import com.xl.ad.entity.unit_condition.AdUnitKeyword;
+import com.xl.ad.entity.unit_condition.CreativeUnit;
 import com.xl.ad.exception.AdException;
 import com.xl.ad.service.AdUnitService;
 import com.xl.ad.service.AdPlanService;
@@ -33,16 +31,21 @@ public class AdUnitServiceImpl implements AdUnitService {
     private final AdUnitKeywordRepository KeywordRepository;
     private final AdUnitItRepository itRepository;
     private final AdUnitDistrictRepository districtRepository;
+    private final CreativeRepository creativeRepository;
+    private final CreativeUnitRepository creativeUnitRepository;
 
     @Autowired
-    public AdUnitServiceImpl(AdUnitRepository adUnitRepository, AdPlanService adPlanService, AdUnitKeywordRepository keywordRepository, AdUnitItRepository itRepository, AdUnitDistrictRepository districtRepository) {
+    public AdUnitServiceImpl(AdUnitRepository adUnitRepository, AdPlanService adPlanService, AdUnitKeywordRepository keywordRepository, AdUnitItRepository itRepository, AdUnitDistrictRepository districtRepository, CreativeRepository creativeRepository, CreativeUnitRepository creativeUnitRepository) {
         this.adUnitRepository = adUnitRepository;
         this.adPlanService = adPlanService;
         KeywordRepository = keywordRepository;
         this.itRepository = itRepository;
         this.districtRepository = districtRepository;
+        this.creativeRepository = creativeRepository;
+        this.creativeUnitRepository = creativeUnitRepository;
     }
 
+//    创建推广单元
     @Transactional
     @Override
     public AdUnitResponse createAdUnit(AdUnitRequest request) throws AdException {
@@ -64,6 +67,7 @@ public class AdUnitServiceImpl implements AdUnitService {
         return new AdUnitResponse(adUnit.getId(),adUnit.getUnitName());
     }
 
+//    创建推广单元关键词限制
     @Override
     public AdUnitKeywordResponse createAdUnitKeyword(AdUnitKeywordRequest request) throws AdException {
         List<Long> unitIds = request.getUnitKeywords().stream().
@@ -88,6 +92,7 @@ public class AdUnitServiceImpl implements AdUnitService {
         return new AdUnitKeywordResponse(ids);
     }
 
+//    创建推广单元兴趣标签限制
     @Override
     public AdUnitItResponse createAdUnitIt(AdUnitItRequest request) throws AdException {
         List<Long> unitIds = request.getUnitKeywords().stream().
@@ -107,6 +112,7 @@ public class AdUnitServiceImpl implements AdUnitService {
         return new AdUnitItResponse(ids);
     }
 
+//    创建推广单元地域限制
     @Override
     public AdUnitDistrictResponse createAdUnitDistrict(AdUnitDistrictRequest request) throws AdException {
         List<Long> unitIds = request.getUnitDistricts().stream()
@@ -123,13 +129,40 @@ public class AdUnitServiceImpl implements AdUnitService {
                             unitDistrict.getCity())));
             ids = districtRepository.saveAll(adUnitDistricts).stream()
                     .map(AdUnitDistrict::getId).collect(Collectors.toList());
-
         }
         return new AdUnitDistrictResponse(ids);
+    }
+
+//    创建创意和推广单元的多对多关系
+    @Override
+    public CreativeUnitResponse createCreativeUnit(CreativeUnitRequest request) throws AdException {
+        List<Long> creativeIds = request.getUnitItems().stream().
+                map(CreativeUnitRequest.UnitItems::getCreativeId).
+                collect(Collectors.toList());
+        List<Long> unitIds = request.getUnitItems().stream().
+                map(CreativeUnitRequest.UnitItems::getUnitId)
+                .collect(Collectors.toList());
+        if(!(isCreativeExists(creativeIds)&&isUnitIdsExists(unitIds))){
+            throw new AdException(Constants.ErrorMsg.REQUEST_PARAM_ERROR);
+        }
+        List<Long> ids = Collections.emptyList();
+        List<CreativeUnit> creativeUnits = new ArrayList<>();
+        if(!CollectionUtils.isEmpty(request.getUnitItems())){
+            request.getUnitItems().forEach(unitItems -> creativeUnits.add(
+                    new CreativeUnit(unitItems.getCreativeId(),unitItems.getUnitId())
+            ));
+            ids = creativeUnitRepository.saveAll(creativeUnits).stream().
+                        map(CreativeUnit::getId).collect(Collectors.toList());
+        }
+        return new CreativeUnitResponse(ids);
     }
 
     private boolean isUnitIdsExists(List<Long> unitIds){
 //        判断广告单元id是否都存在且不为空
         return adUnitRepository.findAllById(unitIds).size() == new HashSet<>(unitIds).size();
+    }
+
+    private boolean isCreativeExists(List<Long> creativeIds){
+        return creativeRepository.findAllById(creativeIds).size()== new HashSet<>().size();
     }
 }

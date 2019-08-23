@@ -31,6 +31,7 @@ public class AdPlanServiceImpl implements AdPlanService {
         this.userService = userService;
     }
 
+//    创建推广计划
     @Override
     @Transactional
     public AdplanResponse createPlan(AdPlanRequest request) throws AdException {
@@ -55,6 +56,7 @@ public class AdPlanServiceImpl implements AdPlanService {
         return new AdplanResponse(adPlan.getId(),adPlan.getPlanName());
     }
 
+//    根据id和用户id查找所有推广单元
     @Override
     public List<AdPlan> findAllByIdAndUserId(AdPlanGetRequest request) throws AdException {
         if(!request.validate()){
@@ -63,6 +65,7 @@ public class AdPlanServiceImpl implements AdPlanService {
         return adPlanRepository.findAllByIdAndUserId(request.getIds(),request.getUserId());
     }
 
+//    更新推广单元
     @Override
     @Transactional
     public AdplanResponse updatePlan(AdPlanRequest request) throws AdException {
@@ -87,6 +90,7 @@ public class AdPlanServiceImpl implements AdPlanService {
         return new AdplanResponse(adPlan.getId(),adPlan.getPlanName());
     }
 
+//    删除推广单元
     @Override
     @Transactional
     public void deletePlan(AdPlanRequest request) throws AdException {

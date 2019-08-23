@@ -31,7 +31,7 @@ public class AccessLogFilter extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         long now = System.currentTimeMillis();
-        RequestContext context = new RequestContext();
+        RequestContext context = RequestContext.getCurrentContext();
         long startTime = (long) context.get("startTime");
         HttpServletRequest request = context.getRequest();
         String uri = request.getRequestURI();

@@ -13,4 +13,6 @@ public interface AdUnitService {
 
     AdUnitDistrictResponse createAdUnitDistrict(AdUnitDistrictRequest request) throws AdException;
 
+    CreativeUnitResponse createCreativeUnit(CreativeUnitRequest request) throws AdException;
+
 }

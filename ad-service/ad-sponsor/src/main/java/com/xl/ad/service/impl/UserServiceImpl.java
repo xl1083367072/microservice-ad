@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
         this.adUserRepository = adUserRepository;
     }
 
+//    创建用户
     @Override
     @Transactional
     public CreateUserResponse createUser(CreateUserRequest request) throws AdException {

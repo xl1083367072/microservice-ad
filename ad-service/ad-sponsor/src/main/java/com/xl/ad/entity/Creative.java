@@ -32,6 +32,7 @@ public class Creative {
     @Column(name = "name", nullable = false)
     private String name;
 
+//    图片，视频，文字等
     @Basic
     @Column(name = "type", nullable = false)
     private Integer type;
