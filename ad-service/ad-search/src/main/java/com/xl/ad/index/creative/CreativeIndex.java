@@ -33,12 +33,12 @@ public class CreativeIndex implements IndexAware<Long,CreativeObject> {
 
     @Override
     public void update(Long key, CreativeObject value) {
-        CreativeObject adPlanObject = map.get(key);
+        CreativeObject creativeObject = map.get(key);
         log.info("adCreative index: before update -> {}",map);
-        if(adPlanObject==null){
+        if(creativeObject==null){
             map.put(key, value);
         }else {
-            adPlanObject.update(value);
+            creativeObject.update(value);
         }
         log.info("adCreative index: after update -> {}",map);
     }

@@ -9,4 +9,13 @@ public class CommonUtils {
         return map.computeIfAbsent(k,obj -> factory.get());
     }
 
+    public static String concat(String... args){
+        StringBuffer stringBuffer = new StringBuffer();
+        for (String str:args){
+            stringBuffer.append(str);
+            stringBuffer.append("-");
+        }
+        return stringBuffer.deleteCharAt(stringBuffer.length() - 1).toString();
+    }
+
 }

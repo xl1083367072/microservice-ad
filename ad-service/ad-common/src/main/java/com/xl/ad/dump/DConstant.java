@@ -3,7 +3,7 @@ package com.xl.ad.dump;
 public class DConstant {
 
 //    数据库索引导出根目录
-    public static final String DATA_ROOT_DIR = "E:\\users\\xl\\mysql_data\\";
+    public static final String DATA_ROOT_DIR = "/usr/local/src/mysql/data/";
 //  导出索引表
     public static final String AD_PLAN = "ad_plan.data";
     public static final String AD_UNIT = "ad_unit.data";

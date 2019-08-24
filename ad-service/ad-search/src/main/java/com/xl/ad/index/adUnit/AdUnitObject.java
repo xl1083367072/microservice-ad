@@ -1,5 +1,6 @@
 package com.xl.ad.index.adUnit;
 
+import com.xl.ad.index.adPlan.AdPlanObject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ public class AdUnitObject {
     private Long planId;
     private Integer unitStatus;
     private Integer positionType;
+    private AdPlanObject adPlanObject;
 
     public void update(AdUnitObject newObject){
         if(newObject.getUnitId()!=null){
