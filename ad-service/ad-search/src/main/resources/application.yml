@@ -42,3 +42,6 @@ myconf:
     password: root
     binlogName:
     position: -1
+
+  kafka:
+    topic: search.data

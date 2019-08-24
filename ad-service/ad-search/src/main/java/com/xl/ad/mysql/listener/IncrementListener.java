@@ -21,6 +21,7 @@ import java.util.Map;
 public class IncrementListener implements BinlogListener{
 
 //  投递对象，有多种投递方式
+    @Autowired
     private Sender sender;
 
 
