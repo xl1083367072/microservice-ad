@@ -3,8 +3,10 @@ package com.xl.ad.index.it;
 import com.xl.ad.index.IndexAware;
 import com.xl.ad.util.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -56,4 +58,16 @@ public class UnitItIndex implements IndexAware<String, Set<Long>> {
         log.info("unitIt index: get -> {}",unitItMap);
         return itUnitMap.get(key);
     }
+
+
+    public boolean match(Long unitId, List<String> itTags){
+        if(unitItMap.containsKey(unitId) && CollectionUtils.isNotEmpty(
+                unitItMap.get(unitId)
+        )){
+            Set<String> currentTags = unitItMap.get(unitId);
+            return CollectionUtils.isSubCollection(itTags,currentTags);
+        }
+        return false;
+    }
+
 }

@@ -15,3 +15,7 @@ zuul:
       path: /ad-sponsor/**    #遇到请求中匹配这个路径的
       serviceId: ad-sponsor   #路由到这个微服务
       strip-prefix: false     #路由到微服务时不去掉前缀
+    search:
+      path: /ad-search/**
+      serviceId: ad-search
+      strip-prefix: false

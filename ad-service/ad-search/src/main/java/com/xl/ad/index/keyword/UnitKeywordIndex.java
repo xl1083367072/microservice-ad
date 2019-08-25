@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -73,7 +74,7 @@ public class UnitKeywordIndex implements IndexAware<String, Set<Long>> {
     }
 
 //    匹配这个推广单元是否包含了这些keyword
-    public boolean match(Long unitId,Set<String> keywords){
+    public boolean match(Long unitId, List<String> keywords){
         if(keywordMap.containsKey(unitId)&& CollectionUtils.isNotEmpty(keywordMap.get(unitId))){
             Set<String> strings = keywordMap.get(unitId);
             return CollectionUtils.isSubCollection(keywords,strings);

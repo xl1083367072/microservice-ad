@@ -1,12 +1,12 @@
 package com.xl.ad.index.creativeUnit;
 
 import com.xl.ad.index.IndexAware;
+import com.xl.ad.index.adUnit.AdUnitObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 
@@ -69,4 +69,20 @@ public class CreativeUnitIndex implements IndexAware<String, CreativeUnitObject>
         log.info("creativeUnit index: get -> {}",map);
         return map.get(key);
     }
+
+//    根据推广单元获得与之对应的创意id
+    public List<Long> getAds(List<AdUnitObject> adUnitObjects){
+        if(CollectionUtils.isEmpty(adUnitObjects)){
+            return Collections.emptyList();
+        }
+        List<Long> adList = new ArrayList<>();
+        for (AdUnitObject object:adUnitObjects){
+            Set<Long> ads = unitCreativeMap.get(object.getUnitId());
+            if(CollectionUtils.isNotEmpty(ads)) {
+                adList.addAll(ads);
+            }
+        }
+        return adList;
+    }
+
 }
