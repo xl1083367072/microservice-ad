@@ -32,7 +32,7 @@ public class ParseTemplate {
             tableTemplate.setLevel(level.toString());
 //            封装进ParseTemplate的map中
             parseTemplate.tableTemplateMap.put(tableName,tableTemplate);
-//            对tableTemplateMap中的opTypeFieldMap进行填充
+//            对tabletemplate中的opTypeFieldMap进行填充
             Map<OpType, List<String>> opTypeFieldMap = tableTemplate.getOpTypeFieldMap();
             for (JsonTable.column column:table.getInsert()){
                 getOrCreate(OpType.ADD, opTypeFieldMap, ArrayList::new).add(column.getColumn());

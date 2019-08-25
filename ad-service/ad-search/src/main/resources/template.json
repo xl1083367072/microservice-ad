@@ -1,7 +1,7 @@
 //定义了对那个数据库，哪些表，每个表层级，对应有哪些操作，操作哪些字段，只操作我们关心的字段
 //对这个json的解析也就是对binlog监听增量索引事件的解析
 {
-  "database": "imooc_ad_data",
+  "database": "ad",
   "tableList": [
     {
       "tableName": "ad_plan",

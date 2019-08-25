@@ -1,6 +1,7 @@
 package com.xl.ad.service;
 
 import com.alibaba.fastjson.JSON;
+import com.xl.ad.Application;
 import com.xl.ad.constant.CommonStatus;
 import com.xl.ad.dao.*;
 import com.xl.ad.dump.DConstant;
@@ -14,8 +15,11 @@ import com.xl.ad.entity.unit_condition.AdUnitKeyword;
 import com.xl.ad.entity.unit_condition.CreativeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.BufferedWriter;
 import java.nio.file.Files;
@@ -25,7 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Service
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {Application.class},webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class DumpDataService {
 
     @Autowired
@@ -43,6 +48,7 @@ public class DumpDataService {
     @Autowired
     private AdUnitDistrictRepository adUnitDistrictRepository;
 
+    @Test
     public void update(){
         dumpAdPlanTable(String.format("%s%s", DConstant.DATA_ROOT_DIR,DConstant.AD_PLAN));
         dumpAdUnitTable(String.format("%s%s", DConstant.DATA_ROOT_DIR,DConstant.AD_UNIT));

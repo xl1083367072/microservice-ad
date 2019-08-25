@@ -13,7 +13,7 @@ spring:
     properties:
       hibernate.format_sql: true
   datasource:
-    url: jdbc:mysql://localhost:3306/ad?autoReconnect=true
+    url: jdbc:mysql://192.168.31.145:3306/ad?autoReconnect=true
     username: root
     password: root
     tomcat:
@@ -41,7 +41,7 @@ myconf:
     username: root
     password: root
     binlogName:
-    position: -1
+    position:
 
   kafka:
     topic: search.data

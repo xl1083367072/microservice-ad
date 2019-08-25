@@ -11,7 +11,7 @@ public class Geo {
 
 //  纬度
     private Float latitude;
-//    经度
+//  经度
     private Float longitude;
 
     private String city;

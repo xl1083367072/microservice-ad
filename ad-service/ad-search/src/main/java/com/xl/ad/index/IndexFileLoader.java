@@ -37,7 +37,7 @@ public class IndexFileLoader {
         }
         List<String> creativeUnits = loadDumpData(String.format("%s%s", DConstant.DATA_ROOT_DIR, DConstant.AD_CREATIVE_UNIT));
         for (String creativeUnit:creativeUnits){
-            AdLevelDataHandler.handleLevel3(JSON.parseObject(creativeUnit, AdUnitTable.class), OpType.ADD);
+            AdLevelDataHandler.handleLevel3(JSON.parseObject(creativeUnit, CreativeUnitTable.class), OpType.ADD);
         }
         List<String> unitKeywords = loadDumpData(String.format("%s%s", DConstant.DATA_ROOT_DIR, DConstant.AD_UNIT_KEYWORD));
         for (String unitKeyword:unitKeywords){

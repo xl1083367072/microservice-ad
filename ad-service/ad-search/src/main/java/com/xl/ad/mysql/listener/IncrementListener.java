@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ import java.util.Map;
 public class IncrementListener implements BinlogListener{
 
 //  投递对象，有多种投递方式
-    @Autowired
+    @Resource(name = "indexSender")
     private Sender sender;
 
 
@@ -38,7 +39,7 @@ public class IncrementListener implements BinlogListener{
     @PostConstruct
     public void register() {
         log.info("IncrementListener注册表信息");
-        Constant.table2Db.forEach((dbName, tableName) -> aggregationListener.register(dbName,tableName,this));
+        Constant.table2Db.forEach((dbName, tableName) -> aggregationListener.register(tableName,dbName,this));
     }
 
     @Override
@@ -52,7 +53,7 @@ public class IncrementListener implements BinlogListener{
         OpType type = OpType.convert(eventType);
         mySqlRowData.setOpType(type);
 //        什么类型操作哪些列
-        List<String> fieldList = tableTemplate.getOpTypeFieldMap().get(eventType);
+        List<String> fieldList = tableTemplate.getOpTypeFieldMap().get(type);
         if(fieldList==null){
             log.warn("不支持{}此类型处理{}",type,tableTemplate.getTableName());
             return;

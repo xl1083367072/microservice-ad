@@ -1,10 +1,10 @@
 server:
-  port: 7001
+  port: 7000
   servlet:
-    context-path: /ad-search
+    context-path: /ad-sponsor
 spring:
   application:
-    name: ad-search
+    name: ad-sponsor
   jpa:
     show-sql: true
     open-in-view: false
@@ -24,24 +24,4 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka8000.com:8000/eureka/
-feign:
-  hystrix:
-    enabled: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"      #暴露所有端点
-
-myconf:
-  mysql:
-    host: 192.168.31.145
-    port: 3306
-    username: root
-    password: root
-    binlogName:
-    position:
-
-  kafka:
-    topic: search.data
+    enabled: false

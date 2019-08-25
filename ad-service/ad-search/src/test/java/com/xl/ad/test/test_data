@@ -1,0 +1,128 @@
+{
+  "featureInfo": {
+    "districtFeature": {
+      "districts": [
+        {
+          "city": "合肥市",
+          "province": "安徽省"
+        }
+      ]
+    },
+    "itFeature": {
+      "its": [
+        "台球",
+        "游泳"
+      ]
+    },
+    "keywordFeature": {
+      "keywords": [
+        "宝马",
+        "奥迪"
+      ]
+    },
+    "relation": "OR"
+  },
+  "requestInfo": {
+    "adSlots": [
+      {
+        "adSlotCode": "ad-a",
+        "height": 720,
+        "minCpm": 10000,
+        "positionType": 1,
+        "type": [
+          1,
+          2
+        ],
+        "width": 1080
+      }
+    ],
+    "app": {
+      "activityName": "app",
+      "appCode": "app",
+      "appName": "app",
+      "packageName": "app"
+    },
+    "device": {
+      "deviceCode": "device",
+      "displaySize": "device",
+      "ip": "device",
+      "mac": "device",
+      "model": "device",
+      "screenSize": "device",
+      "serialName": "device"
+    },
+    "geo": {
+      "city": "苏州",
+      "latitude": 121.5,
+      "longitude": 36.6,
+      "province": "江苏"
+    },
+    "requestId": "test-a"
+  }
+}
+
+---
+
+{
+	"featureInfo": {
+		"districtFeature": {
+			"districts": [
+				{
+					"city": "合肥市",
+					"province": "安徽省"
+				}
+			]
+		},
+		"itFeature": {
+			"its": [
+				"台球",
+				"游泳"
+			]
+		},
+		"keywordFeature": {
+			"keywords": [
+				"宝马",
+				"奥迪",
+				"兰博基尼"
+			]
+		},
+		"relation": "AND"
+	},
+	"requestInfo": {
+		"adSlots": [
+			{
+				"adSlotCode": "ad-b",
+				"height": 720,
+				"minCpm": 10000,
+				"positionType": 1,
+				"type": [
+					1,
+					2
+				],
+				"width": 1080
+			}
+		],
+		"app": {
+			"activityName": "app",
+			"appCode": "app",
+			"appName": "app",
+			"packageName": "app"
+		},
+		"device": {
+			"deviceCode": "device",
+			"displaySize": "device",
+			"ip": "device",
+			"mac": "device",
+			"model": "device",
+			"screenSize": "device",
+			"serialName": "device"
+		},
+		"geo": {
+			"city": "苏州",
+			"latitude": 121.5,
+			"longitude": 36.6,
+			"province": "江苏"
+		},
+		"requestId": "test-a"
+	}
+}

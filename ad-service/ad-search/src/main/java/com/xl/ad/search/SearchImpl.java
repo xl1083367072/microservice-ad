@@ -1,6 +1,7 @@
 package com.xl.ad.search;
 
 import com.alibaba.fastjson.JSON;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.xl.ad.index.CommonStatus;
 import com.xl.ad.index.DataTable;
 import com.xl.ad.index.adUnit.AdUnitIndex;
@@ -28,8 +29,13 @@ import java.util.*;
 @Service
 public class SearchImpl implements Search{
 
+    public SearchResponse fallback(SearchRequest request,Throwable e){
+        return null;
+    }
+
 //    根据媒体方的请求，层层过滤，筛选符合的创意
     @Override
+    @HystrixCommand(fallbackMethod = "fallback")
     public SearchResponse search(SearchRequest request) {
 //        流量类型
         List<AdSlot> adSlots = request.getRequestInfo().getAdSlots();

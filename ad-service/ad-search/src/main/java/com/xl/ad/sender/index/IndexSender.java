@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@Component
+@Component("indexSender")
 public class IndexSender implements Sender {
 
 //    完成各个层级的增量数据投递
